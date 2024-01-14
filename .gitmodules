@@ -1,3 +1,6 @@
 [submodule "_posts/hundong2"]
 	path = _posts/hundong2
 	url = https://github.com/hundong2/hundong2.git
+[submodule "_posts/machine_learning"]
+	path = _posts/machine_learning
+	url = https://github.com/hundong2/machine_learning.git
