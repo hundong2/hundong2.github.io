@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hundong2.github.io/sitemap.xml
