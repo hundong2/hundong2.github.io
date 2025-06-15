@@ -2,7 +2,7 @@
 title: "What is software engineering"
 permalink: /posts/test/
 excerpt: "소프트웨어 엔지니어링의 본질, 조직적 마인드셋, 핵심인재의 행동 철학 및 글로벌 트렌드 분석"
-last_modified_at: 2025-06-15T08:48:05-04:00
+last_modified_at: 2025-06-16T12:03:05-04:00
 redirect_from:
   - /theme-setup/
 toc: true
