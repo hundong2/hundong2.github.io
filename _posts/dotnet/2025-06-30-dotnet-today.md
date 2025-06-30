@@ -5,105 +5,117 @@ categories: dotnet
 tags: [dotnet, 최신기술, 추천]
 ---
 
-## 오늘의 .NET 최신 기술 트렌드: **.NET MAUI (Multi-platform App UI)**
+## 오늘의 .NET 최신 기술 트렌드: **Minimal APIs**
 
-**.NET MAUI**는 Microsoft에서 개발한 크로스 플랫폼 UI 프레임워크입니다. 하나의 코드베이스로 iOS, Android, macOS, Windows 앱을 개발할 수 있게 해줍니다. Xamarin.Forms의 후속 기술로, 성능 향상 및 더 나은 개발자 경험을 제공하는 데 중점을 둡니다.
+**Minimal APIs는 .NET 6에서 처음 도입된 기능으로, 최소한의 코드만으로 HTTP API를 구축할 수 있게 해주는 기술입니다. 기존의 ASP.NET Core Web API 컨트롤러 방식에 비해 코드 양을 줄이고, 더 간결하고 읽기 쉬운 코드를 작성할 수 있도록 도와줍니다.**
 
-**1. 간단한 설명:**
+**간단한 설명:**
 
-.NET MAUI는 C#과 XAML을 사용하여 UI를 정의하고, 플랫폼별 네이티브 UI 컨트롤을 활용하여 각 플랫폼에 최적화된 앱을 만듭니다. 코드 재사용성을 극대화하고 개발 시간과 비용을 절감할 수 있습니다. 또한, Blazor, MVVM 등의 다양한 아키텍처 패턴을 지원하여 유연한 앱 개발이 가능합니다.
+*   **낮은 학습 곡선:** 간단한 문법으로 빠르게 API를 개발할 수 있습니다.
+*   **간결한 코드:** 불필요한 코드를 줄여 가독성을 높이고 유지보수를 용이하게 합니다.
+*   **높은 성능:** 컨트롤러 방식에 비해 약간의 성능 향상을 기대할 수 있습니다.
+*   **유연성:** 미들웨어, 인증, 인가 등 기존 ASP.NET Core의 기능을 그대로 활용할 수 있습니다.
 
-**2. 참고할 만한 공식 사이트나 블로그 링크:**
+**참고할 만한 공식 사이트나 블로그 링크:**
 
-*   **.NET MAUI 공식 문서:** [https://learn.microsoft.com/en-us/dotnet/maui/](https://learn.microsoft.com/en-us/dotnet/maui/)
-*   **.NET 블로그:** [https://devblogs.microsoft.com/dotnet/](https://devblogs.microsoft.com/dotnet/) (MAUI 관련 글 검색)
-*   **James Montemagno 블로그:** [https://montemagno.com/](https://montemagno.com/) (MAUI 관련 팁과 트릭)
+*   **.NET 공식 문서 - Minimal APIs 개요:** [https://learn.microsoft.com/ko-kr/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-8.0](https://learn.microsoft.com/ko-kr/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-8.0)
+*   **Microsoft .NET Blog - Announcing .NET 6:** [https://devblogs.microsoft.com/dotnet/announcing-net-6/](https://devblogs.microsoft.com/dotnet/announcing-net-6/) (Minimal APIs 소개 부분 참조)
 
-**3. 간단한 코드 예시 (C#):**
+**간단한 코드 예시 (C#):**
 
 ```csharp
-// MainPage.xaml.cs
-using Microsoft.Maui.Controls;
+using Microsoft.AspNetCore.Mvc;
 
-namespace MauiApp1;
+var builder = WebApplication.CreateBuilder(args);
 
-public partial class MainPage : ContentPage
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    int count = 0;
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-    public MainPage()
-    {
-        InitializeComponent();
-    }
+app.UseHttpsRedirection();
 
-    private void OnCounterClicked(object sender, EventArgs e)
-    {
-        count++;
 
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
+// GET 엔드포인트 정의
+app.MapGet("/todos", () =>
+{
+    return new List<Todo> {
+        new Todo { Id = 1, Title = "Learn Minimal APIs", IsComplete = false },
+        new Todo { Id = 2, Title = "Build a cool app", IsComplete = true }
+    };
+})
+.WithName("GetTodos")
+.WithOpenApi();
 
-        SemanticScreenReader.Announce(CounterBtn.Text);
-    }
+// POST 엔드포인트 정의
+app.MapPost("/todos", ([FromBody] Todo todo) =>
+{
+    // TODO: Save the todo to a database or other persistent store.
+    todo.Id = new Random().Next(100); // Assign a random ID for demonstration.
+    return Results.Created($"/todos/{todo.Id}", todo);
+})
+.WithName("CreateTodo")
+.WithOpenApi();
+
+
+app.Run();
+
+// 간단한 Todo 모델 클래스
+public class Todo
+{
+    public int Id { get; set; }
+    public string? Title { get; set; }
+    public bool IsComplete { get; set; }
 }
 ```
 
-```xml
-<!-- MainPage.xaml -->
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.MainPage">
+**코드 실행 결과 예시:**
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30"
-            Spacing="25">
+1.  **애플리케이션 실행:** 위 코드를 실행하면 ASP.NET Core 웹 API가 시작됩니다.
+2.  **GET 요청 ( `/todos` )**: 웹 브라우저 또는 Postman과 같은 도구를 사용하여 `https://localhost:<port>/todos` ( `<port>`는 실제 포트 번호로 대체)로 GET 요청을 보내면 다음과 같은 JSON 응답을 받을 수 있습니다.
 
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                HorizontalOptions="Center" />
+    ```json
+    [
+        {
+            "id": 1,
+            "title": "Learn Minimal APIs",
+            "isComplete": false
+        },
+        {
+            "id": 2,
+            "title": "Build a cool app",
+            "isComplete": true
+        }
+    ]
+    ```
+3.  **POST 요청 ( `/todos` )**:  다음과 같은 JSON 데이터를 담아 `https://localhost:<port>/todos` 로 POST 요청을 보내면
 
-            <Label
-                Text="Welcome to .NET MAUI!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+    ```json
+    {
+        "title": "Buy groceries",
+        "isComplete": false
+    }
+    ```
 
-            <Label
-                Text="Start building amazing apps with .NET MAUI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Start building amazing apps with .NET MAUI"
-                FontSize="18"
-                HorizontalOptions="Center" />
+    다음과 같은 응답을 받을 수 있습니다. (ID는 랜덤하게 생성되므로 다를 수 있습니다.)
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+    ```json
+    {
+        "id": 42,
+        "title": "Buy groceries",
+        "isComplete": false
+    }
+    ```
 
-        </VerticalStackLayout>
-    </ScrollView>
+**요약:**
 
-</ContentPage>
-```
-
-**4. 코드 실행 결과 예시:**
-
-위 코드를 실행하면 다음과 같은 UI가 나타납니다.
-
-*   **.NET MAUI 로고 이미지**
-*   **"Welcome to .NET MAUI!" 텍스트**
-*   **"Start building amazing apps with .NET MAUI" 텍스트**
-*   **"Click me" 버튼**
-
-"Click me" 버튼을 클릭할 때마다 버튼의 텍스트가 "Clicked 1 time", "Clicked 2 times" 등으로 업데이트됩니다. 이 앱은 iOS, Android, macOS, Windows에서 동일한 UI와 동작을 보여줍니다.
-
-**결론:**
-
-.NET MAUI는 크로스 플랫폼 앱 개발의 생산성을 높이는 강력한 도구입니다. 코드 재사용성을 통해 개발 비용을 절감하고, 각 플랫폼에 최적화된 네이티브 UI를 제공하여 사용자 경험을 향상시킬 수 있습니다.  최신 .NET 개발 트렌드에 발맞춰 .NET MAUI를 학습하고 프로젝트에 적용해 보는 것을 추천합니다.
+Minimal APIs는 .NET 개발자가 더 빠르고 효율적으로 API를 구축할 수 있도록 도와주는 강력한 기술입니다.  복잡한 프로젝트 뿐만 아니라 간단한 API를 빠르게 만들어야 할 때 특히 유용합니다.  공식 문서를 참고하여 Minimal APIs를 학습하고 프로젝트에 적용해 보세요!
 
