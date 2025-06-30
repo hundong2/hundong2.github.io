@@ -6,7 +6,7 @@ from datetime import datetime
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 if not GEMINI_API_KEY:
     raise RuntimeError('GEMINI_API_KEY 환경 변수가 설정되어 있지 않습니다.')
-GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + GEMINI_API_KEY
+GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_API_KEY
 
 # 각 주제별 프롬프트
 PROMPTS = {
