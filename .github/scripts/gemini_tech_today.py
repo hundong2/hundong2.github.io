@@ -1,5 +1,6 @@
 import os
 import requests
+import time
 from datetime import datetime
 
 # 환경 변수에서 Gemini API 키를 읽음
@@ -37,9 +38,17 @@ def fetch_gemini_content(prompt):
     data = {
         "contents": [{"parts": [{"text": prompt}]}]
     }
-    response = requests.post(GEMINI_API_URL, headers=headers, json=data)
-    response.raise_for_status()
-    return response.json()['candidates'][0]['content']['parts'][0]['text']
+    try:
+        response = requests.post(GEMINI_API_URL, headers=headers, json=data)
+        response.raise_for_status()
+        return response.json()['candidates'][0]['content']['parts'][0]['text']
+    except requests.exceptions.RequestException as e:
+        # 503 등 오류 발생 시 1분 대기 후 1회만 재시도
+        print(f"[fetch_gemini_content] 첫 호출 실패: {e}. 60초 대기 후 재시도...")
+        time.sleep(60)
+        response = requests.post(GEMINI_API_URL, headers=headers, json=data)
+        response.raise_for_status()
+        return response.json()['candidates'][0]['content']['parts'][0]['text']
 
 def main():
     today = datetime.now().strftime('%Y-%m-%d')
@@ -64,4 +73,4 @@ def main():
         print(f"[{topic}] 포스트 생성 완료: {post_path}")
 
 if __name__ == '__main__':
-    main() 
+    main()
