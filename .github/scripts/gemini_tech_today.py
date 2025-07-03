@@ -133,11 +133,22 @@ def create_better_title(topic, tech_name):
     topic_display = topic.upper()
     return f"{topic_display} - {tech_name}"
 def make_post(title, date, category, content):
+    # 제목에서 태그 추출
+    # "DOTNET - C# 12 Primary Constructors" -> ["DOTNET", "C#", "12", "Primary", "Constructors"]
+    title_parts = re.split(r'[-\s]+', title)
+    # 기본 태그에 제목 태그들 추가
+    base_tags = [category, '최신기술', '추천']
+    title_tags = [part.strip() for part in title_parts if part.strip() and len(part.strip()) > 1]
+    all_tags = base_tags + title_tags
+    # 중복 제거 및 정리
+    unique_tags = list(dict.fromkeys(all_tags))  # 순서 유지하며 중복 제거
+    tags_str = ', '.join(unique_tags)
+    
     return f'''---
 title: "{title}"
 date: {date} +0900
 categories: {category}
-tags: [{category}, 최신기술, 추천]
+tags: [{tags_str}]
 ---
 \n{content}\n'''
 
