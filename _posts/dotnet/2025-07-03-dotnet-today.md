@@ -1,77 +1,70 @@
 ---
-title: "DOTNET - Native AOT (Ahead-of-Time Compilation)"
-date: 2025-07-03 15:37:41 +0900
+title: "DOTNET - .NET Aspire"
+date: 2025-07-03 15:47:52 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천]
+tags: [dotnet, 최신기술, 추천, DOTNET, .NET, Aspire]
 ---
 
-## 오늘의 DOTNET 최신 기술 트렌드: **Native AOT (Ahead-of-Time Compilation)**
+## 오늘의 DOTNET 최신 기술 트렌드: **.NET Aspire**
 
 **1. 간단한 설명:**
 
-Native AOT는 .NET 런타임 컴파일러인 RyuJIT를 사용하여 어플리케이션을 배포하기 전에 네이티브 코드로 미리 컴파일하는 기술입니다. 기존의 JIT(Just-In-Time) 컴파일 방식은 어플리케이션 실행 시에 코드를 컴파일하여 실행 속도 향상을 가져왔지만, 콜드 스타트 시간 지연 및 메모리 사용량 증가라는 단점이 있었습니다. Native AOT는 이러한 단점을 해결하고, 어플리케이션 시작 시간을 획기적으로 단축하며, 메모리 사용량을 줄이고, 크기가 작은 독립적인 실행 파일을 생성할 수 있도록 해줍니다. 특히 클라우드 환경, 서버리스 환경, 모바일 환경과 같이 빠른 시작 속도와 작은 Footprint가 중요한 환경에서 유용합니다. .NET 8부터 본격적으로 활용되기 시작하면서, 성능 및 배포 방식에 대한 새로운 가능성을 제시하고 있습니다.
+.NET Aspire는 분산 애플리케이션 개발을 간소화하기 위한 마이크로소프트의 클라우드 네이티브 스택입니다. Aspire는 개발자가 복잡한 분산 시스템을 더 쉽게 구축, 디버깅, 배포 및 관리를 할 수 있도록 설계되었습니다. 핵심적으로 Aspire는 클라우드 네이티브 애플리케이션에서 필요한 서비스 검색, 구성 관리, 텔레메트리, 서비스 간 통신 및 탄력성 패턴 구현과 같은 일반적인 문제들을 해결하는 데 중점을 둡니다. Aspire를 사용하면 개발자는 인프라 코드보다는 비즈니스 로직에 집중할 수 있습니다.
 
 **2. 참고할 만한 공식 사이트나 블로그 링크:**
 
-*   **.NET Native AOT Deployment**: [https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/)
-*   **Announcing .NET 8 Release Candidate 2**: [https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-release-candidate-2/](https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-release-candidate-2/)
-*   **Native AOT: Bringing .NET to New Places**: [https://devblogs.microsoft.com/dotnet/native-aot/](https://devblogs.microsoft.com/dotnet/native-aot/)
-*   **Exploring .NET 8's Native AOT**: [https://andrewlock.net/exploring-dotnet-8-native-aot-new-in-dotnet-8/](https://andrewlock.net/exploring-dotnet-8-native-aot-new-in-dotnet-8/)
+*   **.NET Aspire Overview (Microsoft Docs):** [https://learn.microsoft.com/en-us/dotnet/aspire/get-started/](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/)
+*   **.NET Aspire 샘플:** [https://github.com/dotnet/aspire/tree/main/samples](https://github.com/dotnet/aspire/tree/main/samples)
+*   **.NET Aspire 블로그 (Microsoft .NET Blog):** [https://devblogs.microsoft.com/dotnet/tag/aspire/](https://devblogs.microsoft.com/dotnet/tag/aspire/)
 
 **3. 간단한 코드 예시 (C#):**
 
-Native AOT는 기존의 C# 코드를 변경하는 것이 아니라, 컴파일 과정에서 적용됩니다.  다음은 간단한 콘솔 애플리케이션 예시입니다.
+다음은 .NET Aspire를 사용하여 Redis 캐시를 서비스로 등록하는 간단한 예제입니다.
 
 ```csharp
-using System;
+// Program.cs (Aspire Host)
 
-namespace NativeAOTExample
+using Aspire.StackExchangeRedis;
+
+var builder = DistributedApplication.CreateBuilder(args);
+
+// Redis 캐시를 서비스로 추가합니다.
+builder.AddRedis("cache");
+
+// HTTP API 프로젝트를 서비스로 추가하고, 캐시를 의존성으로 연결합니다.
+builder.AddProject<Projects.WebApp>("webapp")
+       .WithReference(builder.GetResource("cache"));
+
+builder.Build().Run();
+
+// WebApp 프로젝트 (WebApp.csproj) 내의 코드
+
+using StackExchange.Redis;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Redis 연결 문자열을 가져옵니다. Aspire가 자동으로 연결 정보를 제공합니다.
+string redisConnectionString = builder.Configuration.GetConnectionString("cache");
+
+// Redis 연결을 설정합니다.
+builder.Services.AddStackExchangeRedisCache(options =>
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, Native AOT!");
-        }
-    }
-}
+    options.Configuration = redisConnectionString;
+});
+
+var app = builder.Build();
+
+app.MapGet("/", async (IConnectionMultiplexer redis) => {
+    IDatabase db = redis.GetDatabase();
+    await db.StringSetAsync("mykey", "Hello from Aspire!");
+    return await db.StringGetAsync("mykey");
+});
+
+app.Run();
+
 ```
 
 **4. 코드 실행 결과 예시:**
 
-이 코드는 Native AOT로 컴파일되어 실행되면, 다음과 같은 결과를 콘솔에 출력합니다.
-
-```
-Hello, Native AOT!
-```
-
-**Native AOT로 컴파일하는 방법:**
-
-1.  `.csproj` 파일에 `<PublishAot>true</PublishAot>`를 추가합니다.
-2.  `dotnet publish -c Release -r <RID>` 명령어를 사용하여 컴파일합니다.  (`<RID>`는 런타임 식별자, 예를 들어 `linux-x64`, `win-x64`, `osx-x64` 등입니다.)
-
-예시 (`.csproj` 파일):
-
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <PublishAot>true</PublishAot>
-    <InvariantGlobalization>true</InvariantGlobalization>
-  </PropertyGroup>
-
-</Project>
-```
-
-컴파일 명령어:
-
-```bash
-dotnet publish -c Release -r linux-x64
-```
-
-이후 `bin/Release/net8.0/linux-x64/publish/` 폴더에서 네이티브 실행 파일을 확인할 수 있습니다.
+이 코드 예시를 실행하면, ASP.NET Core 웹 애플리케이션이 시작되고,  `/` 엔드포인트에 접근하면 Redis 캐시에 "mykey"라는 키로 "Hello from Aspire!"라는 값을 저장하고, 저장된 값을 반환합니다. Aspire 대시보드를 통해 서비스 연결 상태, 로그, 메트릭을 모니터링할 수 있습니다. 브라우저에서 `/` 엔드포인트를 호출하면 브라우저에 "Hello from Aspire!"가 표시됩니다.
 
