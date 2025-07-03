@@ -92,11 +92,23 @@ def get_previous_technologies(topic, days_back=30):
         try:
             with open(post_file, 'r', encoding='utf-8') as f:
                 content = f.read()
-                # "## 오늘의 [TOPIC] 최신 기술 트렌드: **[기술명]**" 패턴에서 기술명 추출
+                # 1. Jekyll frontmatter에서 title 추출 (우선순위 높음)
+                title_match = re.search(r'^title: "(.+?)"', content, re.MULTILINE)
+                if title_match:
+                    title = title_match.group(1).strip()
+                    # "DOTNET - C# 12 Primary Constructors" 형태에서 기술명 추출
+                    tech_match = re.search(r'^[A-Z\+]+\s*-\s*(.+)', title)
+                    if tech_match:
+                        tech_name = tech_match.group(1).strip()
+                        technologies.append(tech_name)
+                        continue
+                
+                # 2. 본문에서 "## 오늘의 [TOPIC] 최신 기술 트렌드: **[기술명]**" 패턴 추출 (fallback)
                 match = re.search(r'## 오늘의 .+ 최신 기술 트렌드: \*\*(.+?)\*\*', content)
                 if match:
                     tech_name = match.group(1).strip()
                     technologies.append(tech_name)
+                    
         except Exception as e:
             print(f"파일 읽기 오류 {post_file}: {e}")
             continue
@@ -114,6 +126,12 @@ def extract_title_from_content(content):
     
     # 패턴이 없으면 기본 제목 반환
     return "오늘의 최신 기술 추천"
+
+# 더 나은 제목 생성 함수
+def create_better_title(topic, tech_name):
+    """주제와 기술명을 조합하여 더 나은 제목 생성"""
+    topic_display = topic.upper()
+    return f"{topic_display} - {tech_name}"
 def make_post(title, date, category, content):
     return f'''---
 title: "{title}"
@@ -164,9 +182,13 @@ def main():
             print(f"[{topic}] Gemini API 호출 실패: {e}")
             continue
         
-        # 제목 추출
-        extracted_title = extract_title_from_content(content)
-        post_title = f"{topic.upper()} - {extracted_title}"
+        # 제목 추출 및 생성
+        extracted_tech = extract_title_from_content(content)
+        post_title = create_better_title(topic, extracted_tech)
+        
+        # 중복 체크 (방금 추출한 기술이 이미 다뤄진 것인지 확인)
+        if extracted_tech in previous_techs:
+            print(f"[{topic}] 경고: '{extracted_tech}' 기술이 이미 다뤄진 것 같습니다. 그래도 진행합니다.")
         
         # 파일명 및 경로
         filename = f"{filenametoday}-{topic}-today.md"
@@ -183,6 +205,7 @@ def main():
             f.write(post_md)
         print(f"[{topic}] 포스트 생성 완료: {post_path}")
         print(f"[{topic}] 제목: {post_title}")
+        print(f"[{topic}] 추출된 기술: {extracted_tech}")
 
 if __name__ == '__main__':
     main()
