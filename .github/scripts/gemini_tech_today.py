@@ -51,7 +51,8 @@ def fetch_gemini_content(prompt):
         return response.json()['candidates'][0]['content']['parts'][0]['text']
 
 def main():
-    today = datetime.now().strftime('%Y-%m-%d')
+    today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    filenametoday = datetime.now().strftime('%Y-%m-%d')
     for topic in PROMPTS:
         # Gemini API 호출
         try:
@@ -60,11 +61,11 @@ def main():
             print(f"[{topic}] Gemini API 호출 실패: {e}")
             continue
         # 파일명 및 경로
-        filename = f"{today}-{topic}-today.md"
+        filename = f"{filenametoday}-{topic}-today.md"
         post_path = os.path.join(POST_DIRS[topic], filename)
         # 포스트 생성
         post_title = f"{topic.upper()} 오늘의 최신 기술 추천"
-        post_md = make_post(post_title, today + ' 06:00:00', topic, content)
+        post_md = make_post(post_title, today, topic, content)
         # 폴더 없으면 생성
         os.makedirs(POST_DIRS[topic], exist_ok=True)
         # 파일 저장
