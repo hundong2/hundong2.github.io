@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 gRPC JSON transcoding"
 date: 2025-07-18 21:03:06 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, gRPC, JSON, transcoding]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", gRPC, JSON, transcoding]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 gRPC JSON transcoding**

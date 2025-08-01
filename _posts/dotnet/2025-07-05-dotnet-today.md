@@ -29,10 +29,12 @@ builder.WithOpenAIChatCompletionService("gpt-3.5-turbo", "YOUR_OPENAI_API_KEY");
 var kernel = builder.Build();
 
 // Function 정의 (Prompt를 이용)
+{% raw %}
 string prompt = @"
 Summarize the following text:
 {{$input}}
 ";
+{% endraw %}
 
 var summarizeFunction = kernel.CreateSemanticFunction(prompt);
 

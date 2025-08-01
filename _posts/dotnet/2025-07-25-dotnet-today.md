@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 Resource Management 개선 (Resource Consumption Monitoring)"
 date: 2025-07-25 21:03:09 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, Resource, Management, 개선, (Resource, Consumption, Monitoring)]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", Resource, Management, 개선, "Resource", Consumption, "Monitoring"]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 Resource Management 개선 (Resource Consumption Monitoring)**

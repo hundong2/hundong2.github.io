@@ -2,7 +2,7 @@
 title: "DOTNET - Native AOT (Ahead-of-Time Compilation)"
 date: 2025-07-04 21:03:05 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, Native, AOT, (Ahead, of, Time, Compilation)]
+tags: [dotnet, 최신기술, 추천, DOTNET, Native, AOT, "Ahead", of, Time, "Compilation"]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **Native AOT (Ahead-of-Time Compilation)**

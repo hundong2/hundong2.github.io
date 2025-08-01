@@ -18,6 +18,7 @@ Incremental Source Generators는 C# 컴파일러에 코드를 추가하거나 �
 
 **3. 간단한 코드 예시 (C#):**
 
+{% raw %}
 ```csharp
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -104,11 +105,13 @@ namespace MyNamespace
     }
 }
 ```
+{% endraw %}
 
 **4. 코드 실행 결과 예시:**
 
 위의 소스 생성기를 사용하려면 먼저 'MyNamespace.GenerateHelloAttribute'라는 속성을 정의하고, 소스 생성기를 적용할 클래스에 이 속성을 추가합니다.  예를 들어 다음과 같이 코드를 작성할 수 있습니다.
 
+{% raw %}
 ```csharp
 using MyNamespace;
 
@@ -127,6 +130,7 @@ public class Program
     }
 }
 ```
+{% endraw %}
 
 이 코드를 실행하면 콘솔에 "Hello from MyClass!"가 출력됩니다. 이는 Source Generator가 `MyClass`에 `SayHello()` 메서드를 추가했기 때문입니다.  Incremental Source Generators는 변경된 코드에 대해서만 소스를 다시 생성하므로 빌드 시간이 단축됩니다.
 

@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 System.Text.Json 성능 향상 및 기능 추가"
 date: 2025-07-22 21:03:15 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, System.Text.Json, 성능, 향상, 기능, 추가]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", "System.Text.Json", 성능, 향상, 기능, 추가]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 System.Text.Json 성능 향상 및 기능 추가**

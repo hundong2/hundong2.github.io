@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 Observability 향상"
 date: 2025-07-12 21:02:49 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, Observability, 향상]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", Observability, 향상]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 Observability 향상**

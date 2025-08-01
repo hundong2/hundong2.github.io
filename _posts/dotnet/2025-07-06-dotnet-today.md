@@ -2,7 +2,7 @@
 title: "DOTNET - ASP.NET Core Rate Limiting"
 date: 2025-07-06 21:02:48 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, ASP.NET, Core, Rate, Limiting]
+tags: [dotnet, 최신기술, 추천, DOTNET, "ASP.NET", Core, Rate, Limiting]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **ASP.NET Core Rate Limiting**

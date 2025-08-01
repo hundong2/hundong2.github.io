@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 Blazor WebAssembly 성능 최적화"
 date: 2025-07-13 21:02:57 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, Blazor, WebAssembly, 성능, 최적화]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", Blazor, WebAssembly, 성능, 최적화]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 Blazor WebAssembly 성능 최적화**
