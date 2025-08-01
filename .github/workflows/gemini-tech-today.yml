@@ -31,7 +31,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          git pull --rebase origin main
+          git pull --rebase origin main || git pull origin main
           git add _posts/dotnet/ _posts/ai/ _posts/c++/
           git commit -m "Add today's tech recommendations [skip ci]" || echo "No changes to commit"
           git push
