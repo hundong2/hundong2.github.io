@@ -17,7 +17,7 @@ The GitHub Pages deployment workflow has been consistently failing due to YAML f
 ### 2. Liquid Template Parsing Conflicts
 - **C# code with curly braces**: Jekyll was interpreting `{className}` and `{{$input}}` as Liquid template syntax
 - **Double braces in code**: Any `{{` or `}}` in code blocks was being processed as Liquid templates
-- **Solution**: Wrapped code blocks containing curly braces in `{% raw %}` tags
+- **Solution**: Wrapped code blocks containing curly braces in `&#123;% raw %&#125;` tags
 
 ## Error Examples from Build Logs
 
@@ -49,11 +49,11 @@ Created Python script to systematically fix problematic tags:
 ### 2. Liquid Template Escaping
 Wrapped code blocks containing curly braces in raw tags:
 ```markdown
-{% raw %}
+&#123;% raw %&#125;
 ```csharp
 string template = "Hello {{name}}!";
 ```
-{% endraw %}
+&#123;% endraw %&#125;
 ```
 
 ### 3. Validation
@@ -63,7 +63,7 @@ string template = "Hello {{name}}!";
 ## Prevention Measures
 To prevent future issues:
 1. Always quote YAML tags containing special characters
-2. Use `{% raw %}` tags around code blocks with `{` or `}`
+2. Use `&#123;% raw %&#125;` tags around code blocks with `{` or `}`
 3. Run YAML validation before committing new posts
 4. Consider using automated linting in CI/CD pipeline
 
