@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 WebTransport"
 date: 2025-07-29 21:03:14 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, WebTransport]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", WebTransport]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 WebTransport**

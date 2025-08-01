@@ -2,7 +2,7 @@
 title: "DOTNET - .NET Aspire를 활용한 분산 애플리케이션 개발 및 관리 간소화"
 date: 2025-07-24 21:03:29 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET, Aspire를, 활용한, 분산, 애플리케이션, 개발, 관리, 간소화]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET", Aspire를, 활용한, 분산, 애플리케이션, 개발, 관리, 간소화]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET Aspire를 활용한 분산 애플리케이션 개발 및 관리 간소화**

@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 EF Core 8의 JSON 컬럼 지원 강화"
 date: 2025-07-28 21:03:21 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, EF, Core, 8의, JSON, 컬럼, 지원, 강화]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", EF, Core, 8의, JSON, 컬럼, 지원, 강화]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 EF Core 8의 JSON 컬럼 지원 강화**

@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 ConfigurationBinderAttribute"
 date: 2025-07-31 21:03:19 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, ConfigurationBinderAttribute]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", ConfigurationBinderAttribute]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 ConfigurationBinderAttribute**

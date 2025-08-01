@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 Orleans 클러스터링 및 스트리밍 개선"
 date: 2025-07-20 21:02:53 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, Orleans, 클러스터링, 스트리밍, 개선]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", Orleans, 클러스터링, 스트리밍, 개선]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 Orleans 클러스터링 및 스트리밍 개선**

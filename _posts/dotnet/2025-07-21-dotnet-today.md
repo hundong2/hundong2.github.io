@@ -2,7 +2,7 @@
 title: "DOTNET - C#의 패턴 매칭 강화 (Pattern Matching Enhancements)"
 date: 2025-07-21 21:03:10 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, C#의, 패턴, 매칭, 강화, (Pattern, Matching, Enhancements)]
+tags: [dotnet, 최신기술, 추천, DOTNET, C#의, 패턴, 매칭, 강화, "Pattern", Matching, "Enhancements"]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **C#의 패턴 매칭 강화 (Pattern Matching Enhancements)**

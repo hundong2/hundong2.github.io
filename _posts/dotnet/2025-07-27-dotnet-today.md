@@ -2,7 +2,7 @@
 title: "DOTNET - .NET의 SignalR Backplane을 활용한 실시간 분산 애플리케이션 확장"
 date: 2025-07-27 21:03:04 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, .NET의, SignalR, Backplane을, 활용한, 실시간, 분산, 애플리케이션, 확장]
+tags: [dotnet, 최신기술, 추천, DOTNET, ".NET의", SignalR, Backplane을, 활용한, 실시간, 분산, 애플리케이션, 확장]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **.NET의 SignalR Backplane을 활용한 실시간 분산 애플리케이션 확장**
