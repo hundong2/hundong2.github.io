@@ -180,6 +180,7 @@ exclude:
   - tmp
   - /docs # ignore Minimal Mistakes /docs
   - /test # ignore Minimal Mistakes /test
+  - GITHUB_PAGES_ISSUE_ANALYSIS.md # ignore analysis file with Liquid syntax examples
 keep_files:
   - .git
   - .svn

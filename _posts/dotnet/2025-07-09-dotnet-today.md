@@ -2,7 +2,7 @@
 title: "DOTNET - YARP (Yet Another Reverse Proxy)"
 date: 2025-07-09 21:03:13 +0900
 categories: dotnet
-tags: [dotnet, 최신기술, 추천, DOTNET, YARP, (Yet, Another, Reverse, Proxy)]
+tags: [dotnet, 최신기술, 추천, DOTNET, YARP, "Yet", Another, Reverse, "Proxy"]
 ---
 
 ## 오늘의 DOTNET 최신 기술 트렌드: **YARP (Yet Another Reverse Proxy)**
